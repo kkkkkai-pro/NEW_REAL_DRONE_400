@@ -44,10 +44,28 @@ Github链接 [REAL_DRONE_400](https://github.com/NEU-REAL/REAL_DRONE_400/) An op
 # 项目文件说明：
   项目中分为几个文件夹：
 - [files](/files/) 文件夹用于存放各类相关文件
+- [docs](/docs/) 文件夹存放额外的部署与仿真说明
 - [home_shfiles](/home_shfiles/) 存放了快速启动脚本，请将此目录下的脚本放置于home路径下以快速启动
 - [misc](/misc/) 文件夹存放项目相关的图片资料
 - [release](/release/) 文件夹存放项目的硬件设计资料，其中[3MF](/release/3MF/)文件夹存放需要打印的部件模型，我们使用拓竹X1C打印机进行3D打印部分材料制作，耗材使用拓竹PLA-CF。[PRODUCTION](/release/PRODUCTION/)文件夹存放可以直接打印的切片工程。[STEP](/release/STEP/)文件夹存放项目相关的所有硬件设计素材，以STEP文件给出。
+- [scripts/sim](/scripts/sim/) 文件夹提供 Ubuntu 20.04 下的最小仿真工作区创建、编译、启动与 Gazebo 资产检查脚本
 - [src](/src/) 文件夹放置项目源码文件。
+
+## Ubuntu 20.04 仿真快速开始
+
+如果你当前的目标是先跑通仓库现有的仿真链路，而不是直接联调实机模块，可以先看这份文档：
+
+- [Ubuntu 20.04 仿真快速开始](docs/ubuntu20_sim_quickstart.md)
+
+对应脚本位于 [scripts/sim](/scripts/sim/)：
+
+- `install_ubuntu20_deps.sh`：安装 ROS Noetic 与仿真依赖
+- `create_minimal_ws.sh`：创建仅包含仿真所需包的最小工作区
+- `build_minimal_ws.sh`：编译最小工作区
+- `run_single_sim.sh`：启动 `single_run_in_sim.launch`
+- `check_single_sim_topics.sh`：检查关键仿真话题
+- `publish_goal.sh`：命令行发送目标点
+- `find_gazebo_assets.sh`：检查仓库中是否存在 Gazebo world/model/launch 入口
 
 ## 第一章：无人机简介与电气连接
   本次课程与高飞老师的[从零制作自主空中机器人](https://www.bilibili.com/video/BV1WZ4y167me?p=1)同样是一套面向对自主空中机器人感兴趣的学生、爱好者、相关从业人员的免费课程，包含了从硬件组装、机载电脑环境设置、代码部署、实机实验等全套详细流程，带你从0开始，组装属于自己的自主无人机，并让它可以在未知的环境中自由避障穿行。本次课程所涉及的所有代码、硬件设计全部开源，<font color="#dd0000">严禁商用与转载，版权与最终解释权由东北大学REAL实验室所有。</font>

@@ -1,0 +1,55 @@
+competition:
+  frame_id: world
+  odom_topic: /Odom_high_freq
+  goal_topic: /competition/mission_goal
+  takeoff_land_topic: /px4ctrl/takeoff_land
+  block3_activate_topic: /competition/block3/activate
+  block3_status_topic: /competition/block3/status
+  block4_start_topic: /competition/block4/start
+  block4_status_topic: /competition/block4/status
+  mission_status_topic: /competition/mission/status
+
+  auto_takeoff: true
+  auto_land: true
+  takeoff_wait_timeout: 8.0
+  takeoff_ready_height: 0.35
+  land_handoff_delay: 1.0
+  waypoint_goal_tolerance: 0.35
+  waypoint_hold_time: 0.5
+  hover_land_hold_time: 0.8
+
+  mission_sequence:
+    - {type: waypoint, point: [3.0, 0.0, 1.0]}
+    - {type: block3}
+    - {type: waypoint, point: [8.0, 0.0, 1.0]}
+    - {type: block4, gate_index: 0}
+    - {type: hover_land, point: [12.0, 0.0, 1.0]}
+
+  block3:
+    dynamic_topics: [/dynamic/pose_0]
+    wait_point: [4.0, 0.0, 1.0]
+    cross_entry: [5.0, 0.0, 1.0]
+    cross_exit: [7.0, 0.0, 1.0]
+    corridor_width: 1.0
+    dynamic_object_radius: 0.35
+    prediction_horizon: 3.0
+    safety_margin: 0.5
+    min_gap_time: 2.0
+    goal_tolerance: 0.35
+    commit_tolerance: 0.45
+    observe_hold_count: 5
+    publish_rate: 10.0
+
+  block4:
+    goal_tolerance: 0.35
+    align_position_tolerance: 0.20
+    align_speed_tolerance: 0.20
+    align_yaw_tolerance_deg: 30.0
+    publish_rate: 10.0
+    gates:
+      - center: [9.0, 0.0, 1.0]
+        normal: [1.0, 0.0, 0.0]
+        width: 0.5
+        height: 0.5
+        pre_distance: 1.0
+        post_distance: 1.0

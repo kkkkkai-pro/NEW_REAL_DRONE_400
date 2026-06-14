@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
   geometry_msgs
+  nav_msgs
   quadrotor_msgs
   plan_env
   path_searching
@@ -52,5 +53,30 @@ target_link_libraries(ego_planner_node
 add_executable(traj_server src/traj_server.cpp)
 target_link_libraries(traj_server ${catkin_LIBRARIES})
 #add_dependencies(traj_server ${${PROJECT_NAME}_EXPORTED_TARGETS})
+
+add_library(competition_mission_common
+  src/competition_mission_common.cpp
+  )
+target_link_libraries(competition_mission_common
+  ${catkin_LIBRARIES}
+  )
+
+add_executable(block3_task_manager src/block3_task_manager.cpp)
+target_link_libraries(block3_task_manager
+  competition_mission_common
+  ${catkin_LIBRARIES}
+  )
+
+add_executable(block4_gate_manager src/block4_gate_manager.cpp)
+target_link_libraries(block4_gate_manager
+  competition_mission_common
+  ${catkin_LIBRARIES}
+  )
+
+add_executable(competition_mission_manager src/competition_mission_manager.cpp)
+target_link_libraries(competition_mission_manager
+  competition_mission_common
+  ${catkin_LIBRARIES}
+  )
 
 

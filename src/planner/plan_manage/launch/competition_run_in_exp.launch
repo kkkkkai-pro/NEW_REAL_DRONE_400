@@ -1,0 +1,68 @@
+<launch>
+    <arg name="obj_num" value="10" />
+    <arg name="drone_id" value="0"/>
+    <arg name="mission_config" default="$(find ego_planner)/config/competition_mission.yaml"/>
+
+    <arg name="map_size_x" value="100"/>
+    <arg name="map_size_y" value="50"/>
+    <arg name="map_size_z" value="3.0"/>
+    <arg name="odom_topic" value="/Odom_high_freq"/>
+
+    <include file="$(find ego_planner)/launch/advanced_param_exp.xml">
+        <arg name="drone_id" value="$(arg drone_id)"/>
+        <arg name="map_size_x_" value="$(arg map_size_x)"/>
+        <arg name="map_size_y_" value="$(arg map_size_y)"/>
+        <arg name="map_size_z_" value="$(arg map_size_z)"/>
+        <arg name="odometry_topic" value="$(arg odom_topic)"/>
+        <arg name="obj_num_set" value="$(arg obj_num)" />
+        <arg name="camera_pose_topic" value="nouse1"/>
+        <arg name="depth_topic" value="/camera/depth/image_rect_raw"/>
+        <arg name="cloud_topic" value="/cloud_registered"/>
+        <arg name="cx" value="323.3316345214844"/>
+        <arg name="cy" value="234.95498657226562"/>
+        <arg name="fx" value="384.39654541015625"/>
+        <arg name="fy" value="384.39654541015625"/>
+        <arg name="max_vel" value="0.8" />
+        <arg name="max_acc" value="1.5" />
+        <arg name="planning_horizon" value="6" />
+        <arg name="use_distinctive_trajs" value="false" />
+        <arg name="flight_type" value="1" />
+        <arg name="goal_topic" value="/competition/mission_goal" />
+        <arg name="grid_resolution" value="0.10" />
+        <arg name="obstacles_inflation" value="0.12" />
+        <arg name="control_points_distance" value="0.25" />
+        <arg name="point_num" value="1" />
+        <arg name="point0_x" value="0.0" />
+        <arg name="point0_y" value="0.0" />
+        <arg name="point0_z" value="1.0" />
+        <arg name="point1_x" value="0.0" />
+        <arg name="point1_y" value="0.0" />
+        <arg name="point1_z" value="1.0" />
+        <arg name="point2_x" value="0.0" />
+        <arg name="point2_y" value="0.0" />
+        <arg name="point2_z" value="1.0" />
+        <arg name="point3_x" value="0.0" />
+        <arg name="point3_y" value="0.0" />
+        <arg name="point3_z" value="1.0" />
+        <arg name="point4_x" value="0.0" />
+        <arg name="point4_y" value="0.0" />
+        <arg name="point4_z" value="1.0" />
+    </include>
+
+    <node pkg="ego_planner" name="drone_$(arg drone_id)_traj_server" type="traj_server" output="screen">
+        <remap from="~planning/bspline" to="drone_$(arg drone_id)_planning/bspline"/>
+        <param name="traj_server/time_forward" value="1.0" type="double"/>
+    </node>
+
+    <node pkg="ego_planner" name="competition_mission_manager" type="competition_mission_manager" output="screen">
+        <rosparam command="load" file="$(arg mission_config)"/>
+    </node>
+
+    <node pkg="ego_planner" name="block3_task_manager" type="block3_task_manager" output="screen">
+        <rosparam command="load" file="$(arg mission_config)"/>
+    </node>
+
+    <node pkg="ego_planner" name="block4_gate_manager" type="block4_gate_manager" output="screen">
+        <rosparam command="load" file="$(arg mission_config)"/>
+    </node>
+</launch>

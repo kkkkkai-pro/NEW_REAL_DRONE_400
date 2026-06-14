@@ -1,0 +1,57 @@
+# ROS / catkin / colcon build outputs
+/build/
+/build_*/
+/build_isolated/
+/devel/
+/devel_*/
+/devel_isolated/
+/install/
+/install_*/
+/install_isolated/
+/log/
+/logs/
+/.catkin_tools/
+/.colcon/
+/.colcon_cache/
+
+# Root-level CMake/Ninja generated files
+/cmake-build-*/
+/CMakeCache.txt
+/CMakeFiles/
+/CTestTestfile.cmake
+/Testing/
+/Makefile
+/compile_commands.json
+/cmake_install.cmake
+
+# Python caches and virtual environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Editor and IDE files
+.vscode/
+.idea/
+.vs/
+*.swp
+*.swo
+*~
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Logs and temp files
+*.log
+*.tmp
+*.temp
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+Desktop.ini
